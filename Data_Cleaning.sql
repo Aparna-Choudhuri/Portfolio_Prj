@@ -112,9 +112,9 @@ SET SoldAsVacant = CASE When SoldAsVacant = 'Y' THEN 'Yes'
 	   END
 
 
---Remove Duplicates
+--Remove Duplicates using CTE (Common Table Expression)
 
-WITH RowNumCTE AS(
+WITH RowNumCTE AS(     
 Select *,
 	ROW_NUMBER() OVER (
 	PARTITION BY ParcelID,
@@ -129,17 +129,21 @@ Select *,
 From Portfolio_Project.dbo.NashvilleHousing
 --order by ParcelID
 )
-Select *
+DELETE *
 From RowNumCTE
 Where row_num > 1
 Order by PropertyAddress
+
+--Cross check that there aren't any duplicates
+
+SELECT *
+From RowNumCTE
+Where row_num > 1
+Order by PropertyAddress
+
 -- Delete Unused Columns
-
-
-
 Select *
 From Portfolio_Project.dbo.NashvilleHousing
-
 
 ALTER TABLE Portfolio_Project.dbo.NashvilleHousing
 DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress, SaleDate
