@@ -1,9 +1,8 @@
+--View the Data
 SELECT * FROM Portfolio_Project.dbo.Covid_Deaths$
 ORDER BY 3,4
 
---SELECT * FROM Portfolio_Project.dbo.Covid_Deaths$
---ORDER BY 3,4
-
+--View the new case, total cases, population as per location
 SELECT Location, date, total_cases,new_cases,total_deaths,population
 FROM Portfolio_Project.dbo.Covid_Deaths$
 ORDER BY 1,2
